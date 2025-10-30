@@ -4,25 +4,35 @@
  */
 package com.gabrielCant.course.entities;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gabrielCant.course.entities.enums.OrderStatus;
 
+=======
+>>>>>>> 0847861d79bfcb6c162e007ec562ee9af97337c0
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+<<<<<<< HEAD
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+=======
+import java.io.Serializable;
+import java.time.Instant;
+import org.hibernate.annotations.ManyToAny;
+>>>>>>> 0847861d79bfcb6c162e007ec562ee9af97337c0
 
 /**
  *
  * @author gabri
  */
 @Entity
+<<<<<<< HEAD
 @Table(name = "tb_order")
 public class Order implements Serializable{
     
@@ -41,6 +51,18 @@ public class Order implements Serializable{
     private Instant moment;
     
     @ManyToOne
+=======
+public class Order implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
+    
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private Instant moment;
+    
+    @ManyToAny
+>>>>>>> 0847861d79bfcb6c162e007ec562ee9af97337c0
     @JoinColumn(name = "cliente_id")
     private User client;
     
@@ -48,6 +70,7 @@ public class Order implements Serializable{
         
     }
 
+<<<<<<< HEAD
     public Order(Long id, Instant moment,OrderStatus orderStatus, User client) {
     	super();
         this.id = id;
@@ -61,6 +84,19 @@ public class Order implements Serializable{
     }
 
     public void setId(Long id) {
+=======
+    public Order(long id, Instant moment, User client) {
+        this.id = id;
+        this.moment = moment;
+        this.client = client;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+>>>>>>> 0847861d79bfcb6c162e007ec562ee9af97337c0
         this.id = id;
     }
 
@@ -71,6 +107,7 @@ public class Order implements Serializable{
     public void setMoment(Instant moment) {
         this.moment = moment;
     }
+<<<<<<< HEAD
     
     
     public OrderStatus getOrderStatus() {
@@ -84,6 +121,10 @@ public class Order implements Serializable{
 	}
 
 	public User getClient() {
+=======
+
+    public User getClient() {
+>>>>>>> 0847861d79bfcb6c162e007ec562ee9af97337c0
         return client;
     }
 

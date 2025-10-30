@@ -13,6 +13,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -28,11 +30,16 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String password;
+<<<<<<< HEAD
     
 	//relacionamento um para muitos no banco de dados
 	@JsonIgnore
     @OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
+=======
+        
+        private List<Order> orders = new ArrayList<>();
+>>>>>>> 0847861d79bfcb6c162e007ec562ee9af97337c0
 
     
 	
