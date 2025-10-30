@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -23,6 +25,10 @@ public class User implements Serializable {
 	private String email;
 	private String phone;
 	private String password;
+        
+        private List<Order> orders = new ArrayList<>();
+
+    
 	
 	public User() {
 			
@@ -36,7 +42,10 @@ public class User implements Serializable {
 		this.phone = phone;
 		this.password = password;
 	}
-
+        
+        public List<Order> getOrders() {
+        return orders;
+        }
 	public String getEmail() {
 		return email;
 	}
