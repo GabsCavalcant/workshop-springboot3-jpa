@@ -13,110 +13,95 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
-	private String email;
-	private String phone;
-	private String password;
-<<<<<<< HEAD
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String email;
+    private String phone;
+    private String password;
+
+    // Relacionamento um para muitos: um usuário pode ter vários pedidos
+    // 'mappedBy' deve ser exatamente o nome do atributo 'client' que está na classe Order
     
-	//relacionamento um para muitos no banco de dados
-	@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
-	private List<Order> orders = new ArrayList<>();
-=======
-        
-        private List<Order> orders = new ArrayList<>();
->>>>>>> 0847861d79bfcb6c162e007ec562ee9af97337c0
+    private List<Order> orders = new ArrayList<>();
 
-    
-	
-	public User() {
-			
-	}
+    public User() {
+    }
 
-	public User(Long id, String name, String email, String phone, String password) {
-		
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-	}
-        
-        public List<Order> getOrders() {
+    public User(Long id, String name, String email, String phone, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Order> getOrders() {
         return orders;
-        }
-	public String getEmail() {
-		return email;
-	}
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return Objects.equals(id, other.id);
-	}
-	
-	
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        return Objects.equals(id, other.id);
+    }
 }
-
