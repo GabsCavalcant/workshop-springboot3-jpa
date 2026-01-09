@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.gabrielCant.course.entities.Category;
 import com.gabrielCant.course.entities.Order;
+import com.gabrielCant.course.entities.Product;
 import com.gabrielCant.course.entities.User;
 import com.gabrielCant.course.entities.enums.OrderStatus;
 import com.gabrielCant.course.repositories.CategoryRepository;
 import com.gabrielCant.course.repositories.OrderRepository;
+import com.gabrielCant.course.repositories.ProductRepository;
 import com.gabrielCant.course.repositories.UserRepository;
 
 @Configuration
@@ -28,6 +30,8 @@ public class testConfig implements CommandLineRunner{
     private OrderRepository orderRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private ProductRepository productRepository;
 
     testConfig(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -42,6 +46,12 @@ public class testConfig implements CommandLineRunner{
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Pc");
 		
+		Product p1 = new Product(null, "Gta", "Jogo", 500.0, "url");
+		Product p2 = new Product(null, "Skyrim", "Jogo", 900.0, "url");
+		Product p3 = new Product(null, "Sr Anel", "Book", 50.0, "url");
+		Product p4 = new Product(null, "IT", "Pc", 300.0, "url");
+	
+		
 		User u1 = new User(null, "Maria Brownn", "maria@gmail.com", "988888888", "123456");
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 
@@ -52,5 +62,6 @@ public class testConfig implements CommandLineRunner{
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
+		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4));
 	}
 }
