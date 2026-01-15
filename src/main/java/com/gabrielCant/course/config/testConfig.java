@@ -10,10 +10,13 @@ import org.springframework.context.annotation.Profile;
 
 import com.gabrielCant.course.entities.Category;
 import com.gabrielCant.course.entities.Order;
+import com.gabrielCant.course.entities.OrderItem;
 import com.gabrielCant.course.entities.Product;
 import com.gabrielCant.course.entities.User;
 import com.gabrielCant.course.entities.enums.OrderStatus;
+import com.gabrielCant.course.entities.pk.OrdemItemPk;
 import com.gabrielCant.course.repositories.CategoryRepository;
+import com.gabrielCant.course.repositories.OrderItemRepository;
 import com.gabrielCant.course.repositories.OrderRepository;
 import com.gabrielCant.course.repositories.ProductRepository;
 import com.gabrielCant.course.repositories.UserRepository;
@@ -32,6 +35,8 @@ public class testConfig implements CommandLineRunner{
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
     testConfig(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -59,6 +64,8 @@ public class testConfig implements CommandLineRunner{
 		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.WAITING_PAYMENT, u2);
 		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"),OrderStatus.DELIVERED, u1);
 		
+		
+		
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
@@ -69,6 +76,13 @@ public class testConfig implements CommandLineRunner{
 		p3.getCategories().add(cat2);
 		p4.getCategories().add(cat3);
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4));
+		
+		OrderItem ot1 = new OrderItem(o3, p4, p4.getPrice(), 3);
+		OrderItem ot2 = new OrderItem(o2, p3, p3.getPrice(), 5);
+		OrderItem ot3 = new OrderItem(o1, p2, p2.getPrice(), 6);
+		
+		orderItemRepository.saveAll(Arrays.asList(ot1,ot2,ot3));
+		
 		
 	}
 }
