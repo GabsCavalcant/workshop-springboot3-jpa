@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Profile;
 import com.gabrielCant.course.entities.Category;
 import com.gabrielCant.course.entities.Order;
 import com.gabrielCant.course.entities.OrderItem;
+import com.gabrielCant.course.entities.Payment;
 import com.gabrielCant.course.entities.Product;
 import com.gabrielCant.course.entities.User;
 import com.gabrielCant.course.entities.enums.OrderStatus;
-import com.gabrielCant.course.entities.pk.OrdemItemPk;
 import com.gabrielCant.course.repositories.CategoryRepository;
 import com.gabrielCant.course.repositories.OrderItemRepository;
 import com.gabrielCant.course.repositories.OrderRepository;
@@ -82,6 +82,11 @@ public class testConfig implements CommandLineRunner{
 		OrderItem ot3 = new OrderItem(o1, p2, p2.getPrice(), 6);
 		
 		orderItemRepository.saveAll(Arrays.asList(ot1,ot2,ot3));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2014-07-22T15:21:22Z"), o1);
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 		
 		
 	}
