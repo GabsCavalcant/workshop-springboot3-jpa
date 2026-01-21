@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gabrielCant.course.entities.User;
 import com.gabrielCant.course.repositories.UserRepository;
+import com.gabrielCant.course.services.exeption.ResourseNotFoundException;
 
 @Service
 public class UserService {
@@ -21,7 +22,8 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj =  userRepository.findById(id);
-		return obj.get();
+		//implementação da chamaad da classe criada passando o Id 
+		return obj.orElseThrow(() -> new ResourseNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
