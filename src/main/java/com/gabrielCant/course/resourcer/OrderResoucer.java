@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +17,8 @@ import com.gabrielCant.course.services.OrderService;
 
 //Anotação para mostrar que essa classe é um recurso que pode utilziar um controlador Rest 
 @RestController
-@RequestMapping(value = "/Orders")
+@RequestMapping(value = "/orders")
+@CrossOrigin(origins = "*")
 public class OrderResoucer {
 	
 	@Autowired
@@ -34,6 +38,12 @@ public class OrderResoucer {
 	@GetMapping(value = "/{id}") //@PathVariable para "linkar" com o valor id dado no mapping
 	public ResponseEntity<Order> findById(@PathVariable Long id){
 		Order obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Order> insert(@RequestBody Order obj) {
+		obj = service.insert(obj);
 		return ResponseEntity.ok().body(obj);
 	}
 

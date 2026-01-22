@@ -16,25 +16,25 @@ public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L; 
 	
-    //Por ser composto, não utiliza o ID normal.
     @EmbeddedId
 	private OrdemItemPk id = new OrdemItemPk();
 	
 	private Double price;
-	private Integer quantidy;
+	private Integer quantity; // <--- CORRIGIDO: Era "quantidy"
 	
 	public OrderItem() {
-		
 	}
 
-	public OrderItem( Order order, Product product,Double price, Integer quantidy) {
+	public OrderItem(Order order, Product product, Double price, Integer quantity) { // <--- CORRIGIDO
 		super();
 		id.setOrder(order);
 		id.setProduct(product);
-		
 		this.price = price;
-		this.quantidy = quantidy;
+		this.quantity = quantity; // <--- CORRIGIDO
 	}
+    
+    // ... (Seus métodos de setOrder, getOrder, setProduct, getProduct continuam iguais)
+
 	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
@@ -59,35 +59,32 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 
-	public Integer getQuantidy() {
-		return quantidy;
+  
+	public Integer getQuantity() {
+		return quantity;
 	}
 
-	public void setQuantidy(Integer quantidy) {
-		this.quantidy = quantidy;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+    // -------------------------------------------
+
+	public Double getSubTotal() {
+		return price * quantity; 
 	}
 
+    // HashCode e Equals continuam iguais...
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-	
-	public Double getSubTotal() {
-		return price * quantidy;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
 		OrderItem other = (OrderItem) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-
 }
