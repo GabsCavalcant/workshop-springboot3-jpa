@@ -14,11 +14,13 @@ import jakarta.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	
+	
+	//Anotação demarcada para quando chamar a função ResourseNotFoundException ela tratar tudo que está dentro dela.
 	@ExceptionHandler(ResourseNotFoundException.class)
 	public ResponseEntity <StandardError> resourceNotFound(ResourseNotFoundException e, 
 			HttpServletRequest request){
-		String error = "Resource Not Found";
-		HttpStatus status = HttpStatus.NOT_FOUND;
+		String error = "Resource Not Found"; //mensagem personalizada
+		HttpStatus status = HttpStatus.NOT_FOUND; //status not faund do http
 		
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 				

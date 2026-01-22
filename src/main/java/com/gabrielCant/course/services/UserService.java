@@ -10,6 +10,8 @@ import com.gabrielCant.course.entities.User;
 import com.gabrielCant.course.repositories.UserRepository;
 import com.gabrielCant.course.services.exeption.ResourseNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 	
@@ -22,7 +24,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj =  userRepository.findById(id);
-		//implementação da chamaad da classe criada passando o Id 
+		//implementação da chamadda da classe criada passando o Id 
 		return obj.orElseThrow(() -> new ResourseNotFoundException(id));
 	}
 	
@@ -35,10 +37,16 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
+		try {
 		User entity = userRepository.getReferenceById(id);
 		
 		updateData(entity, obj);
 		return userRepository.save(entity);
+		}
+		catch ( EntityNotFoundException e) {
+			
+			throw new ResourseNotFoundException(id);
+		}
 	}
 
 	private void updateData(User entity, User obj) {

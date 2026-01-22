@@ -58,8 +58,15 @@ public class UserResoucer {
 	//Requisão Padrão Rest para "Deletar" algo
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
+		try {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+		}
+		catch (RuntimeException e) {
+	        // Se o ID não existir, cairemos aqui e retornaremos 404
+	        return ResponseEntity.notFound().build();
+	        
+		}
 	}
 	
 	//Requisão Padrão Rest para "Atualizar" algo
